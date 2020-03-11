@@ -1,0 +1,26 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+language: python
+python:
+  - 3.6
+  - 3.5
+  - 3.4
+
+# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+install: pip install -U tox-travis
+script: tox
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: leucothia
+  password:
+    secure: LEUCOTHIA_PASSWORD_ENCRYPTED
+  on:
+    tags: true
+    branch: master
+    repo: oceanprotocol/REPO_NAME
+    python: 3.6
